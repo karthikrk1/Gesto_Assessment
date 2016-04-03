@@ -1,0 +1,118 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="emerillFoods">
+  <head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!-- Optimize mobile viewport -->
+
+    <title>Hungry Hacker</title>
+
+    <!-- SCROLLS -->
+
+    <!-- load bootstrap -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Monteserrat' rel='stylesheet' type='text/css'>
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/hh-1.jpg">
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <!-- load angular -->
+    <script src="js/vendor/ng-backstretch.js"></script>
+
+    <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/ngAlertify.js"></script>
+	<!-- D3.JS  for challenge-->
+ 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="js/controllers/main.js"></script>
+    <!-- load up our controller -->
+    <script src="js/services/foods.js"></script>
+    <!-- load our todo service -->
+    <script src="js/core.js"></script>
+    <!-- load our main application -->
+  </head>
+
+  <!-- SET THE CONTROLLER -->
+  <body ng-controller="mainController">
+    <div backstretch backstretch-images="images" class="backstretch"></div>
+    <div class="overlay"></div>
+    <div class="container-fluid">
+      <div class="content">
+        <h1 class="underlined text-center" id="title">KARTHIK FOODS</h1>
+        <div class="row">
+          <div class="col-sm-4 col-sm-offset-2">
+            <div class="row">
+              <div class="well" id="cart-form">
+                <h4 class="heading">ADD ITEM</h4>
+                <form>
+                  <div class="row">
+                    <div class="col-sm-7">
+                      <input class="form-control" ng-model="formData.name" placeholder="Food Item" type="text">
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input class="form-control" ng-model="formData.price" placeholder="Price" type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary btn-block" ng-click="createFood()" type="submit">ADD TO CART</button>
+                </form>
+              </div>
+            </div>
+            <div class="ng-show" ng-show="foods">
+              <div class="row">
+                <div class="well" id="summary">
+                  <div class="row">
+                    <div class="col-sm-7">
+                      <h5>TOTAL BILL</h5>
+                    </div>
+                    <div class="col-sm-5">
+                      <button class="btn btn-primary" type="button" ng-click="emptyCart()" type="submit">
+                        CHECKOUT
+                        {{ total | currency }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well" id="cart">
+              <h4 class="heading">FOOD CART</h4>
+              <div id="food-list">
+                <div class="ng-show" ng-show="foods">
+                  <span class="item-count">{{ foods.length }}
+                    items in Cart</span>
+                </div>
+                <div class="food" ng-repeat="food in foods">
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <span class="food-name">{{ food.name }}</span>
+                    </div>
+                    <div class="col-sm-2">
+                      <span class="food-price">{{ food.price | currency }}</span>
+                    </div>
+                    <div class="col-sm-2">
+                      <button class="btn btn-default" ng-click="deleteFood(food._id)" type="button">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="ng-hide" ng-hide="foods">
+                  <span class="empty-message">Cart Empty</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
